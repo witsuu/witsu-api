@@ -48,6 +48,7 @@ route.post("/signup", async (req, res) => {
   }
 });
 
+// route login user
 route.post("/login", async (req, res) => {
   // validate data input for login
   const { error } = loginValidation(req.body);
