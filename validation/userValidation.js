@@ -5,7 +5,9 @@ const registerValidation = (data) => {
     nama: Joi.string().min(3).required(),
     email: Joi.string().email({
       minDomainSegments: 2,
-      tlds: { allow: ["com", "net", "id"] },
+      tlds: {
+        allow: ["com", "net", "id"]
+      },
     }),
     password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).min(6),
   });
@@ -16,9 +18,11 @@ const loginValidation = (data) => {
   const schema = Joi.object({
     email: Joi.string().email({
       minDomainSegments: 2,
-      tlds: { allow: ["com", "net", "id"] },
+      tlds: {
+        allow: ["com", "net", "id"]
+      },
     }),
-    password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).min(6),
+    password: Joi.string().min(6),
   });
   return schema.validate(data);
 };

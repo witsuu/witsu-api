@@ -10,16 +10,22 @@ const userRoute = require("./routes/userRoute");
 dotenv.config();
 
 mongoose.connect(
-  process.env.DB_HOST,
-  { useNewUrlParser: true, useUnifiedTopology: true },
+  process.env.DB_HOST, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  },
   () => {
     console.log("connect to db");
   }
 );
 
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
+
+//middleware
 app.use("/content", contentRoute);
 app.use("/user", userRoute);
 
