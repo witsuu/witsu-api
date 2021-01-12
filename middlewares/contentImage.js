@@ -20,7 +20,7 @@ var storages = new storage({
 
     return {
       bucketName: "photos",
-      filename: `$`
+      filename: `${Date.now()}-${file.originalname}`
     }
   }
 
