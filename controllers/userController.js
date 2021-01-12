@@ -35,10 +35,10 @@ const handleRegister = async (req, res) => {
     error) return res.status(400).send(error.details[0].message);
 
   //Check If Email Already Exist
-  const emailExist = Users.findOne({
+  const emailExist = await Users.findOne({
     email: req.body.email
   });
-  if (emailExist) return res, status(400).send('Email Sudah Ada');
+  if (emailExist) return res.status(400).send('Email Sudah Ada');
 
   //Password Hashed
   const salt = await bcrypt.genSalt(10);
