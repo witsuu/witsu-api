@@ -1,12 +1,13 @@
 const util = require('util');
 const multer = require('multer');
 const storage = require('multer-gridfs-storage');
+const dotenv = require('dotenv');
+dotenv.config();
 
 var storages = new storage({
-  url: process.env.DB_HOST,
+  url: process.env.URL,
   options: {
-    useNewUrlParsel: true,
-    useUnifiedTopology: true
+    useNewUrlParser: true
   },
 
   file: (req, file) => {
@@ -26,7 +27,7 @@ var storages = new storage({
 });
 
 var uploadFile = multer({
-  storage: storage
+  storage: storages
 }).single();
 var uploadFileMiddleware = util.promisify(uploadFile);
 
