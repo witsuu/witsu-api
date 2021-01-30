@@ -1,13 +1,14 @@
-const util = require('util');
-const multer = require('multer');
-const storage = require('multer-gridfs-storage');
-const dotenv = require('dotenv');
+const util = require("util");
+const multer = require("multer");
+const GridFsStorage = require("multer-gridfs-storage");
+const dotenv = require("dotenv");
 dotenv.config();
 
-var storages = new storage({
+var storage = new GridFsStorage({
   url: process.env.URL,
   options: {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
   },
 
   file: (req, file) => {
@@ -17,18 +18,16 @@ var storages = new storage({
       const filename = `${Date.now()}-${file.originalname}`;
       return filename;
     }
-
     return {
       bucketName: "photos",
-      filename: `${Date.now()}-${file.originalname}`
-    }
-  }
-
+      filename: `${Date.now()}-${file.originalname}`,
+    };
+  },
 });
 
 var uploadFile = multer({
-  storage: storages
-}).single();
+  storage,
+}).single("file");
 var uploadFileMiddleware = util.promisify(uploadFile);
 
-module.export = uploadFileMiddleware;
+module.exports = uploadFileMiddleware;
